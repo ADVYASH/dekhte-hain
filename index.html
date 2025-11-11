@@ -3,282 +3,44 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Aafat Gaming</title>
-<!-- Google Fonts for Neon Effect -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
-<!-- Styles -->
-<style>
-  body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXZvZXlqcHlmbm05enNsM2gzNmo5dTR4cjVhY3duN2RoeWtndnVnMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/U3qYN8S0j3bpK/giphy.gif');
-    background-size: cover;
-    background-attachment: fixed;
-    color: #0ff;
-    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
-    min-height: 100vh;
-    position: relative;
-  }
-  body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('https://media.giphy.com/media/70v4iG7hqjKQy1bcWX/giphy.gif');
-    background-size: cover;
-    opacity: 0.2;
-    z-index: -1;
-  }
-  /* Header styles */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    position: relative;
-    z-index: 1;
-  }
-  /* Logo container with neon glow */
-  .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 0 20px #0ff, inset 0 0 30px #0ff;
-    border: 2px solid #0ff;
-  }
-  .logo img {
-    width: 100%;
-    height: 100%;
-  }
-  /* Navigation buttons */
-  .nav-buttons a {
-    margin-left: 10px;
-    padding: 10px 15px;
-    border: 2px solid #0ff;
-    background-color: transparent;
-    color: #0ff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-    box-shadow: 0 0 10px #0ff, inset 0 0 20px #0ff;
-    transition: all 0.2s ease;
-  }
-  .nav-buttons a:hover {
-    box-shadow: 0 0 20px #0ff, inset 0 0 30px #0ff;
-    transform: scale(1.05);
-  }
-  /* Profile section styles */
-  #profileSection {
-    display: none;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 10px;
-    border: 2px solid #0ff;
-    box-shadow: 0 0 20px #0ff, inset 0 0 40px #0ff;
-    color: #0ff;
-  }
-  #profileSection h3 {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  #profileAvatar {
-    display: block;
-    margin: 10px auto;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    border: 2px solid #0ff;
-    box-shadow: 0 0 15px #0ff, inset 0 0 30px #0ff;
-  }
-  /* Main content styling */
-  .main {
-    padding: 20px;
-    text-align: center;
-    color: #0ff;
-    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-  }
-  /* Announcement box styling */
-  #announcement {
-    background-color: rgba(0,0,0,0.6);
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
-    border: 2px solid #0ff;
-    box-shadow: 0 0 20px #0ff, inset 0 0 40px #0ff;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  #announcement h3 {
-    margin-bottom: 10px;
-    color: #0ff;
-  }
-  /* Button styles */
-  button {
-    cursor: pointer;
-  }
-</style>
+<title>Discord Profile Viewer</title>
 </head>
 <body>
+<h1>Login with Discord</h1>
+<button id="loginBtn">Login</button>
 
-<!-- Header with logo and navigation -->
-<div class="header">
-  <div class="logo" id="logoContainer">
-    <img src="https://media.giphy.com/media/yiHVzPd8GkInOQGkEk/giphy.gif" alt="Logo" id="logoImage" />
-  </div>
-  <div class="nav-buttons">
-    <a href="index.html">Home</a>
-    <a href="rule.html">Rules</a>
-    <a href="apply.html">Apply</a>
-    <a href="asrp.html">ASRP</a>
-    <a href="game.html">Games</a>
-    <button id="discordLoginBtn" onclick="loginDiscord()">Login with Discord</button>
-    <button id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
-  </div>
+<div id="profile" style="display:none;">
+    <h2>Profile Details</h2>
+    <img id="avatar" src="" alt="Avatar" width="100" />
+    <p><strong>Username:</strong> <span id="username"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>ID:</strong> <span id="id"></span></p>
+    <p><strong>Discriminator:</strong> <span id="discriminator"></span></p>
 </div>
 
-<!-- Profile info -->
-<div id="profileSection">
-  <h3>Discord Profile</h3>
-  <img id="profileAvatar" src="" alt="Avatar" />
-  <p id="profileName"></p>
-  <pre id="profileDetails"></pre>
-</div>
-
-<!-- Main Content -->
-<div class="main" id="homeSection">
-  <h2>Welcome to the Neon Website</h2>
-  <p>Total YouTube Subscribers: <span id="ytSubscribers">Loading...</span></p>
-  <div id="announcement">
-    <h3>Announcements</h3>
-    <p>No announcements at the moment.</p>
-  </div>
-</div>
-
-<!-- Scripts -->
 <script>
-  const CLIENT_ID = '1434242083425878086';
-  const REDIRECT_URI = 'https://advyash.github.io/dekhte-hain/';
-  const WEBHOOK_URL = 'https://discord.com/api/webhooks/1436807166441947326/TDsteagPEvUWZ6doblqvalWHKmafWGrdMsguSz_XBITklWx6uy-p6WpjUO2HBcefkkSC';
+document.getElementById('loginBtn').onclick = () => {
+  // Redirect to backend route that starts OAuth flow
+  window.location.href = '/auth/discord';
+};
 
-  let accessToken = null;
-  let discordProfile = null;
+// After login, the backend redirects back with profile data.
+// For example, you can fetch profile data from an endpoint:
 
-  // Redirect to Discord OAuth
-  function loginDiscord() {
-    const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20guilds`;
-    window.location.href = oauthUrl;
+async function fetchProfile() {
+  const res = await fetch('/profile');
+  if (res.ok) {
+    const data = await res.json();
+    document.getElementById('profile').style.display = 'block';
+    document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`;
+    document.getElementById('username').innerText = data.username + '#' + data.discriminator;
+    document.getElementById('email').innerText = data.email;
+    document.getElementById('id').innerText = data.id;
+    document.getElementById('discriminator').innerText = data.discriminator;
   }
+}
 
-  // Parse OAuth token from URL
-  function parseAccessToken() {
-    const hash = window.location.hash;
-    if (hash) {
-      const params = new URLSearchParams(hash.substring(1));
-      accessToken = params.get('access_token');
-      if (accessToken) {
-        fetchDiscordProfile();
-        history.replaceState("", document.title, window.location.pathname + window.location.search);
-      }
-    }
-  }
-
-  // Fetch user profile from Discord
-  function fetchDiscordProfile() {
-    fetch('https://discord.com/api/users/@me', {
-      headers: { Authorization: 'Bearer ' + accessToken }
-    })
-    .then(res => res.json())
-    .then(data => {
-      discordProfile = data;
-      displayProfile();
-      document.getElementById('discordLoginBtn').style.display='none';
-      document.getElementById('logoutBtn').style.display='inline';
-      // Send webhook automatically on login
-      sendWebhookNotification();
-    });
-  }
-
-  // Display profile info
-  function displayProfile() {
-    document.getElementById('profileSection').style.display='block';
-    const avatarUrl = discordProfile.avatar
-      ? `https://cdn.discordapp.com/avatars/${discordProfile.id}/${discordProfile.avatar}.png`
-      : '';
-    document.getElementById('profileAvatar').src = avatarUrl;
-    document.getElementById('profileName').innerText = `${discordProfile.username}#${discordProfile.discriminator}`;
-    document.getElementById('profileDetails').textContent = JSON.stringify(discordProfile, null, 2);
-  }
-
-  // Logout user
-  function logout() {
-    accessToken = null;
-    discordProfile = null;
-    document.getElementById('profileSection').style.display='none';
-    document.getElementById('discordLoginBtn').style.display='inline';
-    document.getElementById('logoutBtn').style.display='none';
-  }
-
-  // Fetch YouTube subscribers
-  function fetchYTSubscribers() {
-    const API_KEY = 'AIzaSyCWpWeii8qnBNJsI4lOQ1sWn-dy-bZuuXU';
-    const CHANNEL_ID = 'UC3OpDrKArRJ5Jryn3U8Fdew';
-    fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.items && data.items.length > 0) {
-          document.getElementById('ytSubscribers').innerText = data.items[0].statistics.subscriberCount;
-        } else {
-          document.getElementById('ytSubscribers').innerText='Error fetching data';
-        }
-      })
-      .catch(() => {
-        document.getElementById('ytSubscribers').innerText='Error fetching data';
-      });
-  }
-
-  // Send webhook silently
-  function sendWebhookNotification() {
-    if (!discordProfile) {
-      console.log('User not logged in; webhook not sent.');
-      return;
-    }
-    const avatarUrl = discordProfile.avatar
-      ? `https://cdn.discordapp.com/avatars/${discordProfile.id}/${discordProfile.avatar}.png`
-      : '';
-    const mention = `<@${discordProfile.id}>`;
-    const timestamp = new Date().toISOString();
-
-    const payload = {
-      content: `${mention} Login at ${timestamp}`,
-      username: 'Neon Website Bot',
-      avatar_url: avatarUrl
-    };
-
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(res => {
-      if (res.ok) {
-        console.log('Webhook sent successfully.');
-      } else {
-        console.error('Webhook failed.');
-      }
-    })
-    .catch(error => console.error('Error:', error));
-  }
-
-  window.onload = () => {
-    parseAccessToken();
-    fetchYTSubscribers();
-  };
+// Call fetchProfile() if user is logged in (you can trigger this after OAuth)
 </script>
 </body>
 </html>
